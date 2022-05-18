@@ -1,11 +1,27 @@
-## Thread Sanitizer
-
-```
-cd tsan && ./run.sh
-```
-
 ## Addresses Sanitizer
 
+### Teku
+
 ```
-cd asan && ./run.sh
+cd teku/asan && ./run.sh
+```
+
+### Besu
+
+```
+cd besu/asan && ./run.sh
+```
+
+## Thread Sanitizer
+
+### Teku
+
+```
+cd teku/tsan && ./run.sh
+```
+
+### Besu
+
+```
+cd besu/tsan && ./run.sh
 ```
