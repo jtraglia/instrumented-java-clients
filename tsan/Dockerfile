@@ -4,18 +4,12 @@ ARG DEBIAN_FRONTEND=noninteractive
 #
 # Install dependencies.
 #
-RUN apt update
-
-#
-# Install dependencies.
-#
-RUN apt update
-RUN apt install -y autoconf build-essential file git libasound2-dev \
+RUN apt update && apt install -y autoconf build-essential file git libasound2-dev \
   libcups2-dev libfontconfig1-dev libx11-dev libxext-dev libxrender-dev \
   libxrandr-dev libxtst-dev libxt-dev openjdk-13-jdk-headless unzip wget zip
 
 #
-# Configure & build TSAN.
+# Build OpenJDK with Thread Sanitization.
 #
 RUN git clone --branch tsan https://github.com/openjdk/tsan.git jdk-tsan
 WORKDIR jdk-tsan
@@ -23,7 +17,7 @@ RUN bash configure
 RUN make images
 
 #
-# Build Teku
+# Build Teku.
 #
 WORKDIR /
 RUN git clone https://github.com/ConsenSys/teku.git
@@ -31,16 +25,7 @@ WORKDIR teku
 RUN ./gradlew installDist
 
 #
-# Stolen from Teku's dockerfile.
-#
-ENV TEKU_REST_API_INTERFACE=0.0.0.0
-ENV TEKU_VALIDATOR_API_INTERFACE=0.0.0.0
-ENV TEKU_METRICS_INTERFACE=0.0.0.0
-EXPOSE 5051 8008 9000
-
-#
 # Define Teku as the entrypoint.
 #
 ENV JAVA_HOME=/jdk-tsan/build/linux-x86_64-server-release/images/jdk
 ENTRYPOINT ["./build/install/teku/bin/teku"]
-RUN mkdir /opt/data/

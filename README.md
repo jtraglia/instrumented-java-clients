@@ -1,12 +1,11 @@
-## Build tsan-teku docker image
+## Thread Sanitizer
 
 ```
-sudo docker build -t teku-tsan --progress=plain -f teku.docker .
-sudo docker run -it --rm --name teku-tsan-instance teku-tsan --version
+cd tsan && ./run.sh
 ```
 
-## Run besu & teku
+## Addresses Sanitizer
 
 ```
-sudo docker-compose up
+cd asan && ./run.sh
 ```
