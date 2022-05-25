@@ -1,15 +1,23 @@
-## Addresses Sanitizer
+# Instrumented Java Clients
+
+Before running these, log into docker:
+
+```
+docker login
+```
+
+## Address Sanitizer
 
 ### Teku
 
 ```
-cd teku/asan && ./run.sh
+pushd teku/asan && ./build.sh && ./push.sh && popd
 ```
 
 ### Besu
 
 ```
-cd besu/asan && ./run.sh
+pushd besu/asan && ./build.sh && ./push.sh && popd
 ```
 
 ## Thread Sanitizer
@@ -17,11 +25,11 @@ cd besu/asan && ./run.sh
 ### Teku
 
 ```
-cd teku/tsan && ./run.sh
+pushd teku/tsan && ./build.sh && ./push.sh && popd
 ```
 
 ### Besu
 
 ```
-cd besu/tsan && ./run.sh
+pushd besu/tsan && ./build.sh && ./push.sh && popd
 ```
