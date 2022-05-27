@@ -25,7 +25,13 @@ WORKDIR besu
 RUN ./gradlew installDist
 
 #
-# Define Besu as the entrypoint.
+# Define environment variables.
 #
 ENV JAVA_HOME=/jdk-tsan/build/linux-x86_64-server-release/images/jdk
-ENTRYPOINT ["./build/install/besu/bin/besu"]
+
+#
+# Create a runner script that can redirect all output to a unique filename.
+#
+COPY execute.sh /execute.sh
+RUN chmod +x /execute.sh
+ENTRYPOINT ["bash", "/execute.sh"]
